@@ -7,14 +7,14 @@ export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState<any[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("bookmarks");
+    const saved = localStorage.getItem("myAnimeBookmarks");
     if (saved) setBookmarks(JSON.parse(saved));
   }, []);
 
   const removeBookmark = (id: number) => {
-    const updated = bookmarks.filter((anime) => anime.mal_id !== id);
+    const updated = bookmarks.filter((anime) => anime.id !== id);
     setBookmarks(updated);
-    localStorage.setItem("bookmarks", JSON.stringify(updated));
+    localStorage.setItem("myAnimeBookmarks", JSON.stringify(updated));
   };
 
   return (
@@ -47,11 +47,11 @@ export default function BookmarksPage() {
           <div className="d-flex flex-wrap gap-4 justify-content-center">
             {bookmarks.map((anime) => (
               <AnimeCard
-                key={anime.mal_id}
-                id={anime.mal_id}
+                key={anime.id}        
+                id={anime.id}         
                 title={anime.title}
-                image={anime.images.jpg.large_image_url}
-                episode={anime.episodes}
+                image={anime.image}  
+                episode={anime.episode} 
                 isBookmarkPage={true}  
                 onDeleteBookmark={removeBookmark}
               />
